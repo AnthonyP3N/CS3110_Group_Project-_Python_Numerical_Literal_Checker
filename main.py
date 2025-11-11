@@ -84,7 +84,7 @@ class NFAmain:
                                     continue
                                 result = self.run(input_str)
                                 status = "accepted" if result else "rejected"
-                                outfile.write(f"Line {line_number}: '{input_str}' → {status}\n")
+                                outfile.write(f"Line {line_number}: '{input_str}' -> {status}\n")
                                 print(f" Results written to '{output_file}'.")
                   except FileNotFoundError:
                       print(f" error in file {input_file}")
