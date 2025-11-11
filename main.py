@@ -10,7 +10,7 @@ CS 3110 Group Project: Recongize Python Numerical Literals
 
 class NFAmain:
 
-    def states(self):
+    def __init__(self):
         
         self.start_state = "START"
         self.accept_states= {"DIGIT" , "ZERO"}
@@ -74,6 +74,30 @@ class NFAmain:
 
         # Accept string if it ends in one of the valid accept states
         return self.current_state in self.accept_states 
+    
+    def runfile(self, input_file: str, output_file: str) -> None:
+                  try:
+                      with open (input_file, 'r') as infile, open(output_file, 'w') as outfile:
+                          for line_number, line in enumerate(infile, start=1):
+                                input_str = line.strip()
+                                if not input_str:
+                                    continue
+                                result = self.run(input_str)
+                                status = "accepted" if result else "rejected"
+                                outfile.write(f"Line {line_number}: '{input_str}' → {status}\n")
+                                print(f" Results written to '{output_file}'.")
+                  except FileNotFoundError:
+                      print(f" error in file {input_file}")
+                  except Exception as e:
+                      print(f"error in {e}")    
+
+# --- Run the automaton here ---
+if __name__ == "__main__":
+    nfa = NFAmain()
+    nfa.runfile("numbers.txt", "results.txt")
+
+                   
+                                      
 
 
 
