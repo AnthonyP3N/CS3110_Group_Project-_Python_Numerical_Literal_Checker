@@ -2,7 +2,7 @@
 
 CS 3110 Group Project: Recongize Python Numerical Literals
     Group Name: Showdown
-    Group Members: Anthony Penaloza, 
+    Group Members: Anthony Penaloza, Elvin Florencio
 
 
 """
