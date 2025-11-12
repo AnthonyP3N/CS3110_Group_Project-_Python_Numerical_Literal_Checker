@@ -78,13 +78,15 @@ class NFAmain:
     def runfile(self, input_file: str, output_file: str) -> None:
                   try:
                       with open (input_file, 'r') as infile, open(output_file, 'w') as outfile:
+                          outfile.write("NFA Actual results\n")
                           for line_number, line in enumerate(infile, start=1):
                                 input_str = line.strip()
                                 if not input_str:
                                     continue
-                                result = self.run(input_str)
+                                test_string = line.split()[0]
+                                result = self.run(test_string)
                                 status = "accepted" if result else "rejected"
-                                outfile.write(f"Line {line_number}: '{input_str}' -> {status}\n")
+                                outfile.write(f"Line {line_number}: '{test_string}' -> {status}\n")
                                 print(f" Results written to '{output_file}'.")
                   except FileNotFoundError:
                       print(f" error in file {input_file}")
@@ -95,7 +97,7 @@ class NFAmain:
 if __name__ == "__main__":
     nfa = NFAmain()
     input_file = input ("Enter filename: ").strip()
-    nfa.runfile("in_ans.txt", "results.txt")
+    nfa.runfile("in_ans.txt", "out.txt")
 
                    
                                       

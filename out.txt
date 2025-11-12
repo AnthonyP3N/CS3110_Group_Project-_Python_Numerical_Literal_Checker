@@ -1,3 +1,4 @@
+NFA Actual results
 Line 1: '0_' -> rejected
 Line 2: '1111' -> accepted
 Line 3: '0' -> rejected
