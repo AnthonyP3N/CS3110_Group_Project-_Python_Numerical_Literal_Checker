@@ -1,6 +1,6 @@
 0_ reject
 1111 accept
-0 accept
+0 reject
 00000 reject
 1_1111_111__ reject
 1_010101101_123243 accept
