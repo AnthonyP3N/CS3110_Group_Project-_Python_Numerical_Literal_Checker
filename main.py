@@ -94,7 +94,8 @@ class NFAmain:
 # --- Run the automaton here ---
 if __name__ == "__main__":
     nfa = NFAmain()
-    nfa.runfile("numbers.txt", "results.txt")
+    input_file = input ("Enter filename: ").strip()
+    nfa.runfile("in_ans.txt", "results.txt")
 
                    
                                       
