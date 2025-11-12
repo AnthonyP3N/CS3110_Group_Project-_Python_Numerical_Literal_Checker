@@ -1,6 +1,6 @@
 Line 1: '0_' -> rejected
 Line 2: '1111' -> accepted
-Line 3: '0' -> accepted
+Line 3: '0' -> rejected
 Line 4: '00000' -> rejected
 Line 5: '1_1111_111__' -> rejected
 Line 6: '1_010101101_123243' -> accepted

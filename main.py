@@ -13,7 +13,7 @@ class NFAmain:
     def __init__(self):
         
         self.start_state = "START"
-        self.accept_states= {"DIGIT" , "ZERO"}
+        self.accept_states= {"DIGIT"}
         self.current_state = self.start_state
 
 
