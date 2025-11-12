@@ -1,6 +1,6 @@
 Input: 0_  Result: Reject 
 Input: 1111  Result: Accept 
-Input: 0  Result: Accept 
+Input: 0  Result: Reject 
 Input: 00000  Result: Reject 
 Input: 1_1111_111__  Result: Reject 
 Input: 1_010101101_123243  Result: Accept 
