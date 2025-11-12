@@ -12,4 +12,30 @@ _01 reject
 _ reject 
 __ reject
 124233534340_1232432 accept
+0x1 Accept
+0xaa Accept
+0x_a_b_c_E123_eB Accept
+0X_aB_123_b Accept
+0x1244325 Accept
+0x Reject
+0x__ Reject
+0x_ Reject
+0x_1 Accept
+0x_aaaaaBBBB133252354234_abc Accept
+0x_12324ab_abdc_123 Accept
+0o123 Accept
+0o_ Reject
+0o_123423435_1233535567_312456 Accept
+0o_12_1344_124 Accept
+0O1243 Accept
+0O12_235 Accept
+0o8 Reject
+0O8 Reject
+0o___ Reject
+0O__ Reject
+0o_124358 reject
+00_123568 reject
+0O_8__ reject 
+0O_2354645_1236 accept
+
 
