@@ -13,7 +13,7 @@ class NFAmain:
     def __init__(self):
         
         self.start_state = "START"
-        self.accept_states= {"DIGIT" "OCT_DIGIT"}
+        self.accept_states= {"DIGIT", "OCT_DIGIT", "ZERO"}
         self.current_state = self.start_state
 
 
@@ -38,7 +38,9 @@ class NFAmain:
 
         # Zero State Logic
         elif state == "ZERO":
-                # Handles cases where digits/underscores follow zero, should be rejected
+                if ch in ("o", "O"):
+                    self.current_state = "OCT_START"
+                else:
                     self.current_state = "DEAD"
 
         # Digit(s) State Logic
@@ -60,7 +62,7 @@ class NFAmain:
                 self.current_state = "DEAD" 
                 
                 
-            # Dead State Logic    
+                # Dead State Logic    
         elif state == "OCT_START":
             if ch in "01234567":
                 self.current_state = "OCT_DIGIT"
