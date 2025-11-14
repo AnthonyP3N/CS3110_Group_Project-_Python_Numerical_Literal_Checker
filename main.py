@@ -54,16 +54,19 @@ class NFAmain:
                 else:
                     self.current_state = "DEAD"
 
+        # Hexinteger State Logic 
         elif state == "HEXINTEGER":
+                # UNDERSCOREHEX and HEXDIGIT are used so strings don't get overlapped into decinteger states
                 if ch in 'abcdefABCDEF':
-                     self.current_state = "HEXDIGIT" 
+                     self.current_state = "HEXDIGIT"  
                 elif ch.isdigit():
                      self.current_state = "HEXDIGIT"
                 elif ch == "_":
                      self.current_state = "UNDERSCOREHEX"
                 else:
                      self.current_state = "DEAD"
-
+        
+        # Hexdigit State Logic
         elif state == "HEXDIGIT":
                 if ch in 'abcdefABCDEF':
                      self.current_state = "HEXDIGIT" 
@@ -83,8 +86,9 @@ class NFAmain:
                 else:
                     self.current_state = "DEAD" 
         
+        # Underscore State Logic (used for hexdigits)
         elif state == "UNDERSCOREHEX":
-                #  Handles cases of accept string if next ch is digit and reject if next ch is _ 
+                #  Handles cases of accept string if next ch is digit or a-f/A-F and reject if next ch is _ 
                 if ch.isdigit():
                     self.current_state = "HEXDIGIT"
                 elif ch in 'abcdefABCDEF':
