@@ -13,7 +13,7 @@ class NFAmain:
     def __init__(self):
         
         self.start_state = "START"
-        self.accept_states= {"DIGIT"}
+        self.accept_states= {"DIGIT" "OCT_DIGIT"}
         self.current_state = self.start_state
 
 
@@ -54,20 +54,38 @@ class NFAmain:
         # Underscore State Logic
         elif state == "UNDERSCORE":
                 #  Handles cases of accept string if next ch is digit and reject if next ch is _ 
-                if ch.isdigit():
-                    self.current_state = "DIGIT"
-                else:
-                    self.current_state = "DEAD" 
+            if ch.isdigit():
+                self.current_state = "DIGIT"
+            else:
+                self.current_state = "DEAD" 
+                
+                
+            # Dead State Logic    
+        elif state == "OCT_START":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            else:
+                self.current_state = "DEAD"
 
-        # Dead State Logic
+        elif state == "OCT_DIGIT":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            elif ch == "_":
+                self.current_state = "OCT_UNDERSCORE"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "OCT_UNDERSCORE":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            else:
+                self.current_state = "DEAD"
+
         else: 
             # Acts as a dead state, ends reading here
             self.current_state = "DEAD"
             
-   
-          elif state == "OCT_START":
-                      
-                      
+                            
     def run(self, s):
         self.reset()
 
