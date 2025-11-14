@@ -37,5 +37,28 @@ __ reject
 00_123568 reject
 0O_8__ reject 
 0O_2354645_1236 accept
-
+0o0 accept
+0o7 accept
+0o123 accept
+0O1234567 accept
+0o1_2_3_4_5 accept
+0O7_777_777 accept
+0o000 accept
+0o01234567 accept
+0O3_45_67 accept
+0o reject
+0O reject
+0o_123 reject
+0o__123 reject
+0o12__34 reject
+0o8 reject
+0o128 reject
+0o1_2_3_9 reject
+0oA12 reject
+0o7_ reject
+0o_ reject
+0o____ reject
+00o123 reject
+01 reject
+0a123 reject
 
