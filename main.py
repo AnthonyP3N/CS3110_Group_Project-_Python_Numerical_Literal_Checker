@@ -65,8 +65,9 @@ class NFAmain:
             self.current_state = "DEAD"
             
    
-    
-        
+          elif state == "OCT_START":
+                      
+                      
     def run(self, s):
         self.reset()
 
