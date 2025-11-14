@@ -13,7 +13,9 @@ class NFAmain:
     def __init__(self):
         
         self.start_state = "START"
-        self.accept_states= {"DIGIT", "HEXDIGIT"}
+
+        self.accept_states= {"DIGIT", "OCT_DIGIT", "HEXDIGIT"}
+        
         self.current_state = self.start_state
 
 
@@ -41,6 +43,8 @@ class NFAmain:
                 # Handles cases where digits/underscores follow zero, should be rejected
                 if ch in ('x', 'X'):
                     self.current_state = "HEXINTEGER"
+                if ch in ("o", "O"):
+                    self.current_state = "OCT_START"
                 else:
                     self.current_state = "DEAD"
 
@@ -94,13 +98,33 @@ class NFAmain:
                 elif ch in 'abcdefABCDEF':
                     self.current_state = "HEXDIGIT"
                 elif ch == "_":
-                    self.current_state = "DEAD" 
+                    self.current_state = "DEAD"       
+            
+                # Dead State Logic    
+        elif state == "OCT_START":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            else:
+                self.current_state = "DEAD"
 
-        # Dead State Logic
+        elif state == "OCT_DIGIT":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            elif ch == "_":
+                self.current_state = "OCT_UNDERSCORE"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "OCT_UNDERSCORE":
+            if ch in "01234567":
+                self.current_state = "OCT_DIGIT"
+            else:
+                self.current_state = "DEAD"
         else: 
             # Acts as a dead state, ends reading here
             self.current_state = "DEAD"
-
+            
+                            
     def run(self, s):
         self.reset()
 
