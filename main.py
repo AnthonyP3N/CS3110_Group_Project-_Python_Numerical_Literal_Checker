@@ -13,7 +13,9 @@ class NFAmain:
     def __init__(self):
         
         self.start_state = "START"
-        self.accept_states= {"DIGIT", "OCT_DIGIT", "ZERO"}
+
+        self.accept_states= {"DIGIT", "OCT_DIGIT", "HEXDIGIT"}
+        
         self.current_state = self.start_state
 
 
@@ -38,6 +40,9 @@ class NFAmain:
 
         # Zero State Logic
         elif state == "ZERO":
+                # Handles cases where digits/underscores follow zero, should be rejected
+                if ch in ('x', 'X'):
+                    self.current_state = "HEXINTEGER"
                 if ch in ("o", "O"):
                     self.current_state = "OCT_START"
                 else:
@@ -49,19 +54,52 @@ class NFAmain:
                 if ch.isdigit():
                     self.current_state = "DIGIT"
                 elif ch == "_":
-                    self.current_state = "UNDERSCORE"
+                    self.current_state = "UNDERSCORE" 
                 else:
                     self.current_state = "DEAD"
+
+        # Hexinteger State Logic 
+        elif state == "HEXINTEGER":
+                # UNDERSCOREHEX and HEXDIGIT are used so strings don't get overlapped into decinteger states
+                if ch in 'abcdefABCDEF':
+                     self.current_state = "HEXDIGIT"  
+                elif ch.isdigit():
+                     self.current_state = "HEXDIGIT"
+                elif ch == "_":
+                     self.current_state = "UNDERSCOREHEX"
+                else:
+                     self.current_state = "DEAD"
+        
+        # Hexdigit State Logic
+        elif state == "HEXDIGIT":
+                if ch in 'abcdefABCDEF':
+                     self.current_state = "HEXDIGIT" 
+                elif ch.isdigit():
+                     self.current_state = "HEXDIGIT"
+                elif ch == "_":
+                     self.current_state = "UNDERSCOREHEX"
+                else:
+                     self.current_state = "DEAD"
+                     
 
         # Underscore State Logic
         elif state == "UNDERSCORE":
                 #  Handles cases of accept string if next ch is digit and reject if next ch is _ 
-            if ch.isdigit():
-                self.current_state = "DIGIT"
-            else:
-                self.current_state = "DEAD" 
-                
-                
+                if ch.isdigit():
+                    self.current_state = "DIGIT"
+                else:
+                    self.current_state = "DEAD" 
+        
+        # Underscore State Logic (used for hexdigits)
+        elif state == "UNDERSCOREHEX":
+                #  Handles cases of accept string if next ch is digit or a-f/A-F and reject if next ch is _ 
+                if ch.isdigit():
+                    self.current_state = "HEXDIGIT"
+                elif ch in 'abcdefABCDEF':
+                    self.current_state = "HEXDIGIT"
+                elif ch == "_":
+                    self.current_state = "DEAD"       
+            
                 # Dead State Logic    
         elif state == "OCT_START":
             if ch in "01234567":
@@ -82,7 +120,6 @@ class NFAmain:
                 self.current_state = "OCT_DIGIT"
             else:
                 self.current_state = "DEAD"
-
         else: 
             # Acts as a dead state, ends reading here
             self.current_state = "DEAD"
