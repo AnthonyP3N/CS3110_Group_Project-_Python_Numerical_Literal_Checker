@@ -42,8 +42,8 @@ class NFAmain:
         elif state == "ZERO":
                 # Handles cases where digits/underscores follow zero, should be rejected
                 if ch in ('x', 'X'):
-                    self.current_state = "HEXINTEGER"
-                if ch in ("o", "O"):
+                    self.current_state = "HEX_START"
+                elif ch in ("o", "O"):
                     self.current_state = "OCT_START"
                 else:
                     self.current_state = "DEAD"
@@ -58,8 +58,8 @@ class NFAmain:
                 else:
                     self.current_state = "DEAD"
 
-        # Hexinteger State Logic 
-        elif state == "HEXINTEGER":
+        # Hexinteger Start State Logic 
+        elif state == "HEX_START":
                 # UNDERSCOREHEX and HEXDIGIT are used so strings don't get overlapped into decinteger states
                 if ch in 'abcdefABCDEF':
                      self.current_state = "HEXDIGIT"  
@@ -92,7 +92,7 @@ class NFAmain:
         
         # Underscore State Logic (used for hexdigits)
         elif state == "UNDERSCOREHEX":
-                #  Handles cases of accept string if next ch is digit or a-f/A-F and reject if next ch is _ 
+                #  Handles cases of accept string if next ch is digit or a-f/A-F and reject if next ch is _ or any other invaild hexdigit ch
                 if ch.isdigit():
                     self.current_state = "HEXDIGIT"
                 elif ch in 'abcdefABCDEF':
@@ -100,13 +100,16 @@ class NFAmain:
                 elif ch == "_":
                     self.current_state = "DEAD"       
             
-                # Dead State Logic    
+        # Octinteger Start State Logic    
         elif state == "OCT_START":
             if ch in "01234567":
                 self.current_state = "OCT_DIGIT"
+            elif ch == '_':
+                self.current_state = "OCT_UNDERSCORE"
             else:
                 self.current_state = "DEAD"
 
+        # Octdigit State Logic
         elif state == "OCT_DIGIT":
             if ch in "01234567":
                 self.current_state = "OCT_DIGIT"
@@ -115,7 +118,9 @@ class NFAmain:
             else:
                 self.current_state = "DEAD"
 
+        # Underscore State Logic (used for octdigits)
         elif state == "OCT_UNDERSCORE":
+            #  Handles cases of accept string if next ch is a digit 0-7 and reject if next ch is _ or any other invaild octdigit ch
             if ch in "01234567":
                 self.current_state = "OCT_DIGIT"
             else:
