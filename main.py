@@ -63,6 +63,8 @@ class NFAmain:
         else: 
             # Acts as a dead state, ends reading here
             self.current_state = "DEAD"
+            
+            elif state == "OctStart"
 
     def run(self, s):
         self.reset()
