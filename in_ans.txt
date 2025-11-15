@@ -23,6 +23,10 @@ __ reject
 0x_1 Accept
 0x_aaaaaBBBB133252354234_abc Accept
 0x_12324ab_abdc_123 Accept
+0x_ABCEDE Accept
+0x1122abcefg reject
+0x_12342abcedf accept
+0x1244354675453453534ABC accept
 0o123 Accept
 0o_ Reject
 0o_123423435_1233535567_312456 Accept
@@ -48,7 +52,7 @@ __ reject
 0O3_45_67 accept
 0o reject
 0O reject
-0o_123 reject
+0o_123 accept
 0o__123 reject
 0o12__34 reject
 0o8 reject
@@ -61,4 +65,16 @@ __ reject
 00o123 reject
 01 reject
 0a123 reject
-
+2.71828 accept
+4.0 accept
+96_485.332_123 accept
+10. accept
+.001 accept 
+96__12342.201 reject
+1.0e3 accept
+1.666e-5 accept
+6.02214076e+23 accept
+1e3 accept
+0e0 accept
+2_ reject
+1.0_e3 reject
