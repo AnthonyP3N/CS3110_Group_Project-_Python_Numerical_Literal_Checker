@@ -35,6 +35,8 @@ class NFAmain:
                     self.current_state = "ZERO"
                 elif ch.isdigit():
                     self.current_state = "DIGIT"
+                elif ch == ".":
+                            self.current_state = "NO_INT"
                 else:
                     self.current_state = "DEAD" 
 
@@ -45,6 +47,7 @@ class NFAmain:
                     self.current_state = "HEX_START"
                 elif ch in ("o", "O"):
                     self.current_state = "OCT_START"
+                    
                 else:
                     self.current_state = "DEAD"
 
