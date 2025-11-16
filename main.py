@@ -239,7 +239,7 @@ def menu(nfa):
         choice = input("Enter choice (1-3): ").strip()
 
         if choice == "1":
-            s = input("Enter string to test: ").strip()
+            s = input("Enter string: ").strip()
             result = nfa.run(s)
             status = "ACCEPTED" if result else "REJECTED"
             print(f"\nResult: '{s}' -> {status}\n")
