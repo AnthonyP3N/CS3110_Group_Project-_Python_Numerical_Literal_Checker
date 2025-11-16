@@ -14,7 +14,7 @@ class NFAmain:
         
         self.start_state = "START"
 
-        self.accept_states= {"DIGIT", "OCT_DIGIT", "HEXDIGIT"}
+        self.accept_states= {"DIGIT", "OCT_DIGIT", "HEXDIGIT", "WITH_INT", "FRACTION", "EXPONENT"}
         
         self.current_state = self.start_state
 
@@ -47,7 +47,10 @@ class NFAmain:
                     self.current_state = "HEX_START"
                 elif ch in ("o", "O"):
                     self.current_state = "OCT_START"
-                    
+                elif ch in ("e", "E"):
+                    self.current_state = "EXPONENT"
+                elif ch == ".":
+                    self.current_state = "WITH_INT"
                 else:
                     self.current_state = "DEAD"
 
@@ -58,8 +61,73 @@ class NFAmain:
                     self.current_state = "DIGIT"
                 elif ch == "_":
                     self.current_state = "UNDERSCORE" 
+                elif ch == ".":
+                          self.current_state = "WITH_INT"
+                elif ch in "eE":
+                    self.current_state = "EXP_START"
                 else:
                     self.current_state = "DEAD"
+
+        # FRACTIONAL FLOAT 
+        elif state == "NO_INT":
+            if ch.isdigit():
+                self.current_state = "FRACTION"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "WITH_INT":
+            if ch.isdigit():
+                self.current_state = "FRACTION"
+            elif ch in "eE":
+                self.current_state = "EXP_START"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "FRACTION":
+            if ch.isdigit():
+                self.current_state = "FRACTION"
+            elif ch == "_":
+                self.current_state = "UNDERSCORE_FRAC"
+            elif ch in "eE":
+                self.current_state = "EXP_START"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "UNDERSCORE_FRAC":
+            if ch.isdigit():
+                self.current_state = "FRACTION"
+            else:
+                self.current_state = "DEAD"
+
+        #EXPONENT STATE Logic
+        elif state == "EXP_START":
+            if ch in "+-":
+                self.current_state = "EXP_SIGN"
+            elif ch.isdigit():
+                self.current_state = "EXPONENT"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "EXP_SIGN":
+            if ch.isdigit():
+                self.current_state = "EXPONENT"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "EXP_DIGIT":
+            if ch.isdigit():
+                self.current_state = "EXPONENT"
+            elif ch == "_":
+                self.current_state = "UNDERSCORE_EXP"
+            else:
+                self.current_state = "DEAD"
+
+        elif state == "UNDERSCORE_EXP":
+            if ch.isdigit():
+                self.current_state = "EXPONENT"
+            else:
+                self.current_state = "DEAD"
+
 
         # Hexinteger Start State Logic 
         elif state == "HEX_START":
@@ -166,7 +234,7 @@ class NFAmain:
 if __name__ == "__main__":
     nfa = NFAmain()
     input_file = input ("Enter filename: ").strip()
-    nfa.runfile("in_ans.txt", "out.txt")
+    nfa.runfile(input_file, "out.txt")
 
                    
                                       
