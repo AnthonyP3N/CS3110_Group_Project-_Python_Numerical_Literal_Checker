@@ -74,8 +74,8 @@ Line 72: '.001' -> accepted
 Line 73: '96__12342.201' -> rejected
 Line 74: '1.0e3' -> accepted
 Line 75: '1.666e-5' -> accepted
-Line 76: '6.02214076e+23' -> rejected
+Line 76: '6.02214076e+23' -> accepted
 Line 77: '1e3' -> accepted
-Line 78: '0e0' -> rejected
+Line 78: '0e0' -> accepted
 Line 79: '2_' -> rejected
 Line 80: '1.0_e3' -> rejected

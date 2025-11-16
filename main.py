@@ -114,7 +114,7 @@ class NFAmain:
             else:
                 self.current_state = "DEAD"
 
-        elif state == "EXP_DIGIT":
+        elif state == "EXPONENT":
             if ch.isdigit():
                 self.current_state = "EXPONENT"
             elif ch == "_":
@@ -230,11 +230,37 @@ class NFAmain:
                   except Exception as e:
                       print(f"error in {e}")    
 
+def menu(nfa):
+    while True:
+        print("1. Test single string")
+        print("2. Run input file")
+        print("3. Exit")
+
+        choice = input("Enter choice (1-3): ").strip()
+
+        if choice == "1":
+            s = input("Enter string to test: ").strip()
+            result = nfa.run(s)
+            status = "ACCEPTED" if result else "REJECTED"
+            print(f"\nResult: '{s}' -> {status}\n")
+            break
+
+        elif choice == "2":
+            in_file = input("Enter input filename: ").strip()
+            nfa.runfile(in_file, "out.txt")
+            break
+
+        elif choice == "3":
+            print("Goodbye.")
+            break
+
+        else:
+            print("Invalid option — choose 1, 2, or 3.")
+
 # --- Run the automaton here ---
 if __name__ == "__main__":
     nfa = NFAmain()
-    input_file = input ("Enter filename: ").strip()
-    nfa.runfile(input_file, "out.txt")
+    menu(nfa)
 
                    
                                       
